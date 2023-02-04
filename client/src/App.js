@@ -4,6 +4,7 @@ import { createTheme } from '@mui/material/styles';
 import { themeSettings } from 'theme';
 import { useSelector } from 'react-redux';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import OverView from 'scenes/overview';
 
 import Dashboard from 'scenes/dashboard';
 import Layout from 'scenes/layout';
@@ -28,6 +29,7 @@ function App() {
               <Route path="/customers" element={<Customers />} />
               <Route path="/transactions" element={<Transaction />} />
               <Route path="/geography" element={<Geography />} />
+              <Route path="/overview" element={<OverView />} />
             </Route>
           </Routes>
         </ThemeProvider>
