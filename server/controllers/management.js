@@ -21,11 +21,19 @@ export const getUserPerformance = async (req, res) => {
           from: 'affiliatestats',
           localField: '_id',
           foreignField: 'userId',
-          as: 'affiliatestats',
+          as: 'affiliateStats',
         },
       },
-      { $unwind: $affiliateStates },
+      { $unwind: $affiliateStats },
     ]);
+
+    const saleTransactions = await Promise.all(userWithStats[0].affiliateStats.affiliateSales).map(
+      (id) => {
+        return Transaction.findById(id);
+      },
+    );
+    const filteredSaleTransactions = saleTransactions.filter((transaction) => transaction !== null);
+    res.status(200).json({ user: userWithStats[0], sales: filteredSaleTransactions });
   } catch (error) {
     res.status(404).json(error);
   }
